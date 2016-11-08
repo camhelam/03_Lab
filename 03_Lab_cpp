@@ -1,0 +1,121 @@
+#include <iostream>
+#include <string>
+#include <ios>
+#include <iomanip>
+using namespace std;
+
+int main() {
+   double TOTAL_YEARS         = 5.0;
+   double milesPerYear        = 0.0;
+   double pricePerGallon      = 0.0;
+   double initialCostHybrid   = 0.0;
+   double hybridMPG           = 0.0;
+   double hybridResaleValue   = 0.0;
+   double initialCostNormCar  = 0.0;
+   double normCarMPG          = 0.0;
+   double normCarResaleValue  = 0.0;
+   string userBuyingCriteria  = "";
+   string errorMessageNeg     = "I'm sorry, you must enter a value bigger than zero. Please try again. Please enter: ";
+   
+   cout << "Please enter the following:" << endl;
+   cout << endl;
+      
+   cout << "The estimated miles driven per year: " <<  endl; //prompt
+   cin  >> milesPerYear;
+   if (milesPerYear <= 0) { // message and correction if 0 or smaller
+      cout << errorMessageNeg << endl;
+      cout << "The estimated miles driven per year: " << endl;
+      cin  >> milesPerYear;
+   }
+   
+   cout << "The estimated price of a gallon of gas during the 5 years of ownership: " << endl; // prompt
+   cin  >> pricePerGallon;
+   if (pricePerGallon <= 0.0) {
+      cout << errorMessageNeg << endl;
+      cout << "The estimated price of a gallon of gas during the 5 years of ownership: " << endl;
+      cin  >> pricePerGallon;
+   }
+   
+   cout << "The initial cost of a hybrid car: " << endl; //prompt
+   cin  >> initialCostHybrid;
+   if (initialCostHybrid <= 0.0) {
+      cout << errorMessageNeg << endl;
+      cout << "The initial cost of a hybrid car: " << endl;
+      cin  >> initialCostHybrid;
+   } 
+   
+   cout << "The efficiency of the hybrid car in miles per gallon: " << endl; // prompt
+   cin  >> hybridMPG;
+   if (hybridMPG <= 0) {
+      cout << errorMessageNeg << endl;
+      cout << "The efficiency of the hybrid car in miles per gallon: " << endl;
+      cin  >> hybridMPG;
+   }
+   
+   cout << "The estimated resale value (a dollar amount) for a hybrid after 5 years: " << endl; //prompt
+   cin  >> hybridResaleValue;
+   if (hybridResaleValue <= 0.0) {
+      cout << errorMessageNeg << endl;
+      cout << "The estimated resale value (a dollar amount) for a hybrid after 5 years: " << endl;
+      cin  >> hybridResaleValue;
+   }
+   
+   cout << "The initial cost of a non-hybrid car: " << endl; //prompt
+   cin  >> initialCostNormCar;
+   if (initialCostNormCar <= 0.0) {
+      cout << errorMessageNeg << endl;
+      cout << "The initial cost of a non-hybrid car: " << endl;
+      cin  >> initialCostNormCar;
+   }
+   
+   cout << "The efficiency of the non-hybrid car in miles per gallon: " << endl; // prompt
+   cin  >> normCarMPG;
+   if (normCarMPG <= 0) {
+      cout << errorMessageNeg << endl;
+      cout << "The efficiency of the non-hybrid car in miles per gallon: " << endl;
+      cin  >> normCarMPG;
+   }
+   
+   cout << "The estimated resale value (a dollar amount) for a non-hybrid after 5 years: " << endl; //prompt
+   cin  >> normCarResaleValue;
+   if (normCarResaleValue <= 0.0) {
+      cout << errorMessageNeg << endl;
+      cout << "The estimated resale value (a dollar amount) for a non-hybrid after 5 years: " << endl;
+      cin  >> normCarResaleValue;
+   }
+   
+   cout << "The user's buying criterion, either minimized gas consumption or total cost (enter Gas or Total): " << endl; //prompt
+   cin  >> userBuyingCriteria;   //assume correct answers
+   
+   double totalGallonsHybrid = (milesPerYear * TOTAL_YEARS) / hybridMPG; //estimated gallons consumed in 5 years hybrid   
+   double fuelCostHybrid = (totalGallonsHybrid * pricePerGallon);
+   double deprHybrid = (initialCostHybrid - hybridResaleValue);
+   double totalCostHybrid = fuelCostHybrid + deprHybrid;
+   
+   cout << "For the Hybrid Car: " << endl;
+   cout << endl;
+   cout << "The total gallons of fuel consumed over 5 years: " << fixed << setprecision(2) << totalGallonsHybrid << endl;
+   cout << "The total cost of owning the car for 5 years: " << totalCostHybrid << endl;
+   cout << endl;
+   
+   double totalGallonsNormCar = (milesPerYear * TOTAL_YEARS / normCarMPG); //estimated gallons consumed in 5 years non hybrid
+   double fuelCostNormCar = (totalGallonsNormCar * pricePerGallon);
+   double deprNormCar = (initialCostNormCar - normCarResaleValue);
+   double totalCostNormCar = fuelCostNormCar + deprNormCar;
+   
+   cout << "For the NON-Hybrid Car: " << endl;
+   cout << endl;
+   cout << "The total gallons of fuel consumed over 5 years: " << totalGallonsNormCar << endl;
+   cout << "The total cost of owning the car for 5 years: " << totalCostNormCar << endl;
+   cout << endl;
+   
+   if (((userBuyingCriteria == "Gas") && (totalGallonsHybrid <= totalGallonsNormCar)) || ((userBuyingCriteria == "Total") && (totalCostHybrid <= totalCostNormCar))) {
+      cout << "** The HYBRID Car is better than the NON-HYBRID Car when \"" << userBuyingCriteria << "\" is the user's primary objective.";
+   }
+   else {
+      cout << "** The NON-HYBRID Car is better than the HYBRID Car when \"" << userBuyingCriteria << "\" is the user's primary objective.";
+   } 
+   
+   
+   return 0;
+}
